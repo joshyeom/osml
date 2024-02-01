@@ -1,19 +1,29 @@
 'use client'
 import Image from "next/image"
-import { ChangeEvent } from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 const Search = ({items}: any) => {
-    const [searchValue, setSearchValue] = useState<string>("")
+    const [keyword, setKeyword] = useState<string>("")
     const [list, setList] = useState([])
-    const changeHandler = (e) => {
-        setSearchValue(e.currentTarget.value)
-        setList(items.filter((v: any) => v[0].includes(searchValue)))
-        console.log(list)
+    const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
+        setKeyword(e.currentTarget.value)
     }
+
+    useEffect(() => {
+        const debounce = setTimeout(() => {
+                if(keyword) setList(items.filter((v: any) => v[0].includes(keyword)))
+            },200)
+            return () => {
+                clearTimeout(debounce)
+            }
+    },[keyword,items])
     return (
         <>
-            <input type="text" onChange={changeHandler}/>
+            <input 
+                type="text" 
+                onChange={changeHandler}
+                value={keyword}
+            />
             <ul>
                 {
                 list.map((v: any) => 
