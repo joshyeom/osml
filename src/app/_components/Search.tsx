@@ -10,13 +10,9 @@ const Search = ({items}: any) => {
     }
 
     useEffect(() => {
-        const debounce = setTimeout(() => {
-                if(keyword) setList(items.filter((v: any) => v[0].includes(keyword)))
-            },200)
-            return () => {
-                clearTimeout(debounce)
-            }
+        if(keyword) setList(items.filter((v: any) => v[0].includes(keyword)))
     },[keyword,items])
+
     return (
         <>
             <input 
