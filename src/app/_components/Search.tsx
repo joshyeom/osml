@@ -6,8 +6,8 @@ import { useState } from "react"
 const Search = ({items}: any) => {
     const [searchValue, setSearchValue] = useState<string>("")
     const [list, setList] = useState([])
-    const changeHandler = (e:ChangeEvent) => {
-        setSearchValue(e.target.value)
+    const changeHandler = (e) => {
+        setSearchValue(e.currentTarget.value)
         setList(items.filter((v: any) => v[0].includes(searchValue)))
         console.log(list)
     }
@@ -17,7 +17,7 @@ const Search = ({items}: any) => {
             <ul>
                 {
                 list.map((v: any) => 
-                        (<li>    
+                        (<li key={v[0]}>    
                             <span>{v[0]}</span>
                             <Image src={v[1]} alt={v[0]} width={30} height={30}/>
                         </li>)
