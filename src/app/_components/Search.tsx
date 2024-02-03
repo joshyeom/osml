@@ -10,8 +10,23 @@ const Search = ({items}: any) => {
     }
 
     useEffect(() => {
-        if(keyword) setList(items.filter((v: any) => v[0].includes(keyword)))
-    },[keyword,items])
+        if (keyword) {
+          const filteredItem = items.filter((v: any) => v[0].includes(keyword));
+        
+          const sortedItem = filteredItem.sort((a:string[], b:string[]) => {
+            if(a[0].startsWith(keyword) && !b[0].startsWith(keyword)){
+                return -1
+            }   else if (!a[0].startsWith(keyword) && b[0].startsWith(keyword)) {
+                return 1;
+              } else {
+                return 0;
+              }
+          })
+          setList(sortedItem.slice(0, 5))
+
+          
+        }
+      }, [keyword, items]);
 
     return (
         <>
