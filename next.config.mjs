@@ -7,6 +7,10 @@ const nextConfig = {
         protocol: "http",
         hostname: "maplestory.io",
       },
+      {
+        protocol: "https",
+        hostname: "osmlib.com",
+      },
     ],
   },
   async rewrites() {
