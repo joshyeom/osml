@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+
+
 * { 
     margin: 0;
     padding: 0;
@@ -13,4 +15,6 @@ body {
     min-width: 400px;
     background-color: rgb(54, 57, 63);
     margin: 0 auto; 
+    overflow-x: hidden;
+    
 }
