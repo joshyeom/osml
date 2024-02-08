@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { ItemListProps } from "../types/ItemListProps"
 
-export const ItemList: React.FC<ItemListProps>  = ({name, imageUrl, id, keyword}) => {
+export const ItemList: React.FC<ItemListProps>  = ({name, imageUrl, id, category, keyword}) => {
     if(!name.includes(keyword)){
         return
     }

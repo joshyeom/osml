@@ -3,4 +3,5 @@ export interface ItemListProps {
     imageUrl: string;
     keyword: string;
     id: string
+    category: string;
   }
