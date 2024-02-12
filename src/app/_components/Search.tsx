@@ -7,8 +7,7 @@ import { MobList } from "./MobList"
 import { SearchProps } from "../types/SearchProps"
 import { filterItemHandler } from "../_utils/filterItemHandler"
 
-
-const Search: React.FC<SearchProps> = ({items}) => {
+const Search: React.FC<SearchProps> = ({items, position}) => {
     const [keyword, setKeyword] = useState<string>("")
     const [itemList, setItemList] = useState<SearchProps["items"]>([])
     const [mobList, setMobList] = useState<SearchProps["items"]>([])
@@ -27,7 +26,7 @@ const Search: React.FC<SearchProps> = ({items}) => {
 
 
     return (
-        <main className="w-760px flex flex-col items-center mt-14">
+        <section className="w-760px flex flex-col items-center mt-14">
             <Image src="https://osmlib.com/d5386814b15c0b011cd619fd05125d45.png" alt="logo" width={400} height={100}/>
             <input 
                 type="text" 
@@ -38,24 +37,23 @@ const Search: React.FC<SearchProps> = ({items}) => {
             />
             {
             mobList.length > 0 || itemList.length > 0 ? 
-                <ul className="w-full min-w-[300px] border-white border border-t-0 flex flex-col justify-center align-center mb
-                -14">
-                    {itemList.length > 0 ? <div className="text-center mt-5 text-white">아이템</div> : null}
+                <ul className={`w-full min-w-[300px] border-white border border-t-0 flex flex-col justify-center align-center mb-14 ${position}`}>
+                    {itemList.length > 0 ? <div className="text-center my-5 text-white">아이템</div> : null}
                     {
                     itemList.length > 0 ? itemList.map(v => (
-                            <ItemList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category}keyword={keyword} ></ItemList>
+                            <ItemList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category} keyword={keyword}></ItemList>
                         )) : null
                     }
-                    {mobList.length > 0 ? <div className="text-center mt-5 text-white">몹</div> : null}
+                    {mobList.length > 0 ? <div className="text-center my-5 text-white">몹</div> : null}
                     {
                     mobList.length > 0 ? mobList.map(v => (
-                           <MobList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category} keyword={keyword} ></MobList> 
+                           <MobList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category} keyword={keyword}></MobList> 
                         )) : null
                     }
                 </ul>
             : null
             }
-        </main>
+        </section>
     )
 }
 

@@ -1,9 +1,9 @@
-import { getData } from "@/api/getData";
+import { getList } from "@/app/api/getList";
 import Search from "./_components/Search";
 
 const Home = async () => {
-    const items = await getData()
-    return <Search items={items}></Search>
+    const items = await getList()
+    return <Search position={"static"} items={items}></Search>
 } 
 
 export default Home
