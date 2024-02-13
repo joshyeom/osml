@@ -1,32 +1,62 @@
 "use client"
 import { useParams } from "next/navigation"
-import { getDetails } from "@/app/api/getDetails"
-import { useEffect } from "react"
-import { ItemDetailsProps } from "../types/ItemDetailsProps"
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { fetchDetails } from "../_utils/fetchDetails"
+import { fetchImageURL } from "../_utils/fetchImageURL"
+import { ItemsProps } from "../types/ItemsProps"
 
-
-const ItemDetails: React.FC<ItemDetailsProps> = () => {
-    const params = useParams()
+const ItemDetails = ({items}: ItemsProps[]) => {
+    const { name } = useParams()
+    const [details, setDetails] = useState<ItemProps | null>(null)
+    const [itemIMG, setItemIMG] = useState<string>("")
     useEffect(() => {
-        const fetchDetails = async () => {
-            try {
-                if(typeof params.name !== "string"){
-                    return
-                }
-                const details = await getDetails(params.name);
-                console.log(details)
-            } catch (error) {
-                console.error(error);
+        if(typeof name !== "string"){
+            return
+        }
+
+        const fetchData = async () => {
+            try{
+                const fetchedDetails = await fetchDetails(name)
+                setDetails(fetchedDetails)
+            }catch(err){
+                console.error(err)
             }
-        };
-        fetchDetails();
-    }, [params.name]);
+        }
+        fetchData()
+
+        const fetchedImageURL = fetchImageURL(name, items)
+        if(fetchedImageURL){
+            setItemIMG(fetchedImageURL)
+        }
+
+    }, [name, items]);
+
+
     return (
-        <section className="w-full flex flex-col items-center mt-14">
-            <header className="w-full bg-white">
-                <div>아이템 이름</div>
-                <div>이미지</div>
+        <section className="w-full h-full grid grid-rows-10 grid-cols-10 mt-[350px]">
+            <header className="row-span-1 col-span-10  bg-white flex items-center justify-center">
+                <div>{details ? details.result.exactMatchInfo.itemInfo[0].itemName : null}</div>
+                {itemIMG ? 
+                    <Image src={itemIMG} alt={itemIMG} width={20} height={20}></Image>
+                : null}
             </header>
+            <div className="row-span-9 col-span-2 bg-blue-900">
+                <div>아이템</div>
+                <div>세부정보</div>
+            </div>
+            <div className="row-span-9 col-span-4 bg-red-900">
+                <div>몹 이름</div>
+                <div>세부정보</div>
+            </div>
+            <div className="row-span-9 col-span-2 bg-green-900">
+                <div>스텟</div>
+                <div>세부정보</div>
+            </div>
+            <div className="row-span-9 col-span-2 bg-yellow-900">
+                <div>드랍 확률</div>
+                <div>세부정보</div>
+            </div>
         </section>
     )
 }

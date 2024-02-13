@@ -16,5 +16,9 @@ body {
     background-color: rgb(54, 57, 63);
     margin: 0 auto; 
     overflow-x: hidden;
-    
+    position: relative;
+}
+
+ul {
+    background-color: rgb(54, 57, 63);
 }

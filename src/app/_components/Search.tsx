@@ -7,7 +7,7 @@ import { MobList } from "./MobList"
 import { SearchProps } from "../types/SearchProps"
 import { filterItemHandler } from "../_utils/filterItemHandler"
 
-const Search: React.FC<SearchProps> = ({items, position}) => {
+const Search: React.FC<SearchProps> = ({items, position, width}) => {
     const [keyword, setKeyword] = useState<string>("")
     const [itemList, setItemList] = useState<SearchProps["items"]>([])
     const [mobList, setMobList] = useState<SearchProps["items"]>([])
@@ -26,7 +26,7 @@ const Search: React.FC<SearchProps> = ({items, position}) => {
 
 
     return (
-        <section className="w-760px flex flex-col items-center mt-14">
+        <section className={`${width} flex flex-col items-center mt-14 ${position}`}>
             <Image src="https://osmlib.com/d5386814b15c0b011cd619fd05125d45.png" alt="logo" width={400} height={100}/>
             <input 
                 type="text" 
@@ -37,7 +37,7 @@ const Search: React.FC<SearchProps> = ({items, position}) => {
             />
             {
             mobList.length > 0 || itemList.length > 0 ? 
-                <ul className={`w-full min-w-[300px] border-white border border-t-0 flex flex-col justify-center align-center mb-14 ${position}`}>
+                <ul className={`w-full min-w-[300px] border-white border border-t-0 flex flex-col justify-center align-center mb-14`}>
                     {itemList.length > 0 ? <div className="text-center my-5 text-white">아이템</div> : null}
                     {
                     itemList.length > 0 ? itemList.map(v => (

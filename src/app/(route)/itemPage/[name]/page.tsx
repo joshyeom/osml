@@ -6,9 +6,9 @@ import { getList } from "@/app/api/getList";
 const Itempage = async () => {
     const items = await getList()
     return (
-        <main className="w-1620px h-520px flex flex-col items-center">
-            <Search position={"absolute"} items={items}></Search>
-            <ItemDetails></ItemDetails>
+        <main className="w-[1620px] flex flex-col items-center">
+            <Search position={"absolute"} width={"w-[280px]"} items={items}></Search>
+            <ItemDetails items={items}></ItemDetails>
         </main>
     )
 }
