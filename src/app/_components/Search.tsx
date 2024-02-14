@@ -7,22 +7,22 @@ import { MobList } from "./MobList"
 import { SearchProps } from "../types/SearchProps"
 import { filterItemHandler } from "../_utils/filterItemHandler"
 
-const Search: React.FC<SearchProps> = ({items, position, width}) => {
+const Search: React.FC<SearchProps> = ({data, position, width}) => {
     const [keyword, setKeyword] = useState<string>("")
-    const [itemList, setItemList] = useState<SearchProps["items"]>([])
-    const [mobList, setMobList] = useState<SearchProps["items"]>([])
+    const [itemList, setItemList] = useState<SearchProps["data"]>([])
+    const [mobList, setMobList] = useState<SearchProps["data"]>([])
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.currentTarget.value)
     }
     useEffect(() => {
-        const sortedItem = filterItemHandler(items, keyword)
+        const sortedItem = filterItemHandler(data, keyword)
         if(sortedItem !== undefined){
             const mob = sortedItem.filter(v => v.category === "mob")
             const item = sortedItem.filter(v => v.category === "item")
             setMobList(mob.slice(0, 5))
             setItemList(item.slice(0, 5))
         }
-      }, [keyword, items]);
+      }, [keyword, data]);
 
 
     return (

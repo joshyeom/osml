@@ -1,7 +1,7 @@
-import { ItemListProps } from "../types/ItemListProps"
+import { DataProps } from "../types/DataProps"
 import ImageFallback from "./ImageFallback"
 
-export const MobList:React.FC<ItemListProps> = ({name, imageUrl, keyword, id}) => {
+export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     if(!name.includes(keyword)){
         return
     }

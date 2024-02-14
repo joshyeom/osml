@@ -4,9 +4,10 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { fetchDetails } from "../_utils/fetchDetails"
 import { fetchImageURL } from "../_utils/fetchImageURL"
-import { ItemsProps } from "../types/ItemsProps"
+import { DataListProps } from "../types/DataListProps"
+import { ItemProps } from "../types/ItemProps"
 
-const ItemDetails = ({items}: ItemsProps[]) => {
+const ItemDetails = ({data}: DataListProps) => {
     const { name } = useParams()
     const [details, setDetails] = useState<ItemProps | null>(null)
     const [itemIMG, setItemIMG] = useState<string>("")
@@ -25,17 +26,17 @@ const ItemDetails = ({items}: ItemsProps[]) => {
         }
         fetchData()
 
-        const fetchedImageURL = fetchImageURL(name, items)
+        const fetchedImageURL = fetchImageURL(name, data)
         if(fetchedImageURL){
             setItemIMG(fetchedImageURL)
         }
 
-    }, [name, items]);
+    }, [name, data]);
 
 
     return (
         <section className="w-full h-full grid grid-rows-10 grid-cols-10 mt-[350px]">
-            <header className="row-span-1 col-span-10  bg-white flex items-center justify-center">
+            <header className="row-span-1 col-span-10  bg-white flex data-center justify-center">
                 <div>{details ? details.result.exactMatchInfo.itemInfo[0].itemName : null}</div>
                 {itemIMG ? 
                     <Image src={itemIMG} alt={itemIMG} width={20} height={20}></Image>

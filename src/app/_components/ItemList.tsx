@@ -1,8 +1,8 @@
 import Image from "next/image"
-import { ItemListProps } from "../types/ItemListProps"
+import { DataProps } from "../types/DataProps"
 import { useRouter } from "next/navigation"
 
-export const ItemList: React.FC<ItemListProps>  = ({name, imageUrl, id, category, keyword}) => {
+export const ItemList: React.FC<DataProps>  = ({name, imageUrl, id, category, keyword}) => {
     const router = useRouter()
 
     const routeHandler = (name: string) => {

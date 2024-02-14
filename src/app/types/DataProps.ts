@@ -1,4 +1,4 @@
-export interface ItemListProps {
+export interface DataProps {
     name: string;
     imageUrl: string;
     keyword: string;

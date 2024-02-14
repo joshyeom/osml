@@ -1,6 +1,6 @@
-import { ItemProps } from "./ItemProps";
+import { DataListProps } from "./DataListProps";
 
-export interface SearchProps extends ItemProps {
+export interface SearchProps extends DataListProps {
     position: string;
     width: string;
 }

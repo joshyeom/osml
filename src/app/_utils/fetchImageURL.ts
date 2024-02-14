@@ -1,5 +1,5 @@
 import { error } from "console"
-import { ItemListProps } from "../types/ItemListProps"
+import { ItemListProps } from "../types/DataProps"
 
 export const fetchImageURL = (name: string, items: ItemListProps[]) => {
     try{
