@@ -1,6 +1,6 @@
 import { SearchProps } from "../types/SearchProps";
 
-export const filterItemHandler = (items :SearchProps["items"] ,keyword: string) => {
+export const filterItemHandler = (items :SearchProps["data"] ,keyword: string) => {
     if (keyword) {
         const filteredItem = items.filter(v => v.name.includes(keyword));
         const sortedItem = filteredItem.sort((a, b) => {
