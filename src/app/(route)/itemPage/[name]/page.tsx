@@ -1,5 +1,5 @@
 import Search from "@/app/_components/Search";
-import ItemDetails from "../../../_components/ItemDetails";
+import ItemPage from "../../../_components/ItemPage";
 import { getList } from "@/app/api/getList";
 
 
@@ -8,7 +8,7 @@ const Itempage = async () => {
     return (
         <main className="w-[1620px] flex flex-col items-center">
             <Search position={"absolute"} width={"w-[280px]"} data={data}></Search>
-            <ItemDetails data={data}></ItemDetails>
+            <ItemPage data={data}></ItemPage>
         </main>
     )
 }

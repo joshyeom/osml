@@ -1,5 +1,5 @@
 import { StatsApi } from "./StatsApi"
-
+import { MobsThatDropTheItemProps } from "./MobsThatDropTheItemProps"
 export interface ItemProps{
     result: {
         exactMatchInfo: {
@@ -17,6 +17,7 @@ export interface ItemProps{
                 itemTypeInfo:{
                     subCategory: string
                 }
+                mobsThatDropTheItem: MobsThatDropTheItemProps[]
             }[]
         }
     }
