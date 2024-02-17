@@ -9,7 +9,7 @@ const ItemDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, category}: Item
     },[REQST])
     
     return(
-    <div className="row-span-9 col-span-2 flex flex-col justify-center items-center">
+    <div className="row-span-9 col-span-2 flex flex-col items-center">
         <header className="w-full h-[50px] text-xl text-white text-center">
             <h2>아이템</h2>
         </header>

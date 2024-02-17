@@ -77,30 +77,38 @@ const ItemPage = ({data}: DataListProps) => {
 
     return (
         <section className="w-full h-full grid grid-rows-10 grid-cols-10 mt-[350px]">
-            <header className="row-span-1 text-white col-span-10 flex data-center justify-center items-center">
-                {details ?   
-                    <div>{itemName}</div>
-                : null}
+            <header className="row-span-1 col-span-10 flex data-center justify-center items-center">
                 {itemIMG ? 
                     <Image src={itemIMG} alt={itemIMG} width={30} height={30}></Image>
                 : null}
+                {details ?   
+                    <div>{itemName}</div>
+                : null}
             </header>
                 <ItemDetails REQLEV={REQLEV} itemIMG={itemIMG} itemName={itemName} REQST={REQST} forSell={forSell} category={category}></ItemDetails>
-            <div className="row-span-9 col-span-4 bg-red-900">
-                <header className="w-full h-[50px] text-xl text-white text-center">
+            <div className="row-span-9 col-span-3">
+                <header className="w-full h-[50px] text-xl text-center">
                     <h2>드랍 몹</h2>
                 </header>
+                <ol>
                 {dropMob ? 
                     dropMob.map((mob, i) => (
-                        <ol key={i}>
-                            <li>
-                                <ImageFallback imageUrl={mobIMG[i]} alt={dropMob[i].mobName} width={60} height={60} />
-                                <div>{mob.mobName}</div>
+                            <li key={i} className="h-[300px] flex flex-col justify-around items-center mb-[100px]">
+                                <div className="w-[150px] h-[150px] relative">
+                                    <ImageFallback imageUrl={mobIMG[i]} alt={dropMob[i].mobName}/>
+                                </div>
+                                <div className="text-xl font-semibold">{mob.mobName}</div>
+                                <div className="w-7/12 h-[30px] bg-yellow-500 flex justify-center items-center rounded">LEVEL {mob.mobMeta.level}</div>
+                                <div className="w-7/12 flex h-[30px] justify-between">
+                                    <div className="w-5/12 bg-red-500 flex justify-center items-center rounded">HP {mob.mobMeta.maxHP}</div>
+                                    <div className="w-5/12 bg-blue-500 flex justify-center items-center rounded">MP {mob.mobMeta.maxMP}</div>
+                                </div>
+                                <div  className="w-7/12 h-[30px] bg-green-500 flex justify-center items-center rounded">요구 명중률 {mob.mobMeta.accuracyRequiredToHit}</div>
                             </li>
-                        </ol>
-                )) : null}
+                        )) : null}
+                </ol>
             </div>
-            <div className="row-span-9 col-span-2 bg-green-900">
+            <div className="row-span-9 col-span-3 bg-green-900">
                 <div>스텟</div>
                 <div>세부정보</div>
             </div>
