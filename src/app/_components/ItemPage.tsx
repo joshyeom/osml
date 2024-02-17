@@ -9,6 +9,7 @@ import { ItemProps } from "../types/ItemProps"
 import { StatsApi } from "../types/StatsApi"
 import ItemDetails from "./ItemDetails"
 import { MobsThatDropTheItemProps } from "../types/MobsThatDropTheItemProps"
+import ImageFallback from "./ImageFallback"
 
 const ItemPage = ({data}: DataListProps) => {
     const { name } = useParams()
@@ -37,9 +38,9 @@ const ItemPage = ({data}: DataListProps) => {
         }
         fetchData()
 
-        const fetchedImageURL = fetchImageURL(name, data)
-        if(fetchedImageURL){
-            setItemIMG(fetchedImageURL)
+        const fetchedItemIMG = fetchImageURL(name, data)
+        if(fetchedItemIMG){
+            setItemIMG(fetchedItemIMG)
         }
 
     }, [name, data]
@@ -59,7 +60,19 @@ const ItemPage = ({data}: DataListProps) => {
         setCategory(itemInfo.itemTypeInfo.subCategory)
         setDropMob(itemInfo.mobsThatDropTheItem)
     },[details])
-
+    
+    useEffect(() => {
+        if(dropMob === null){
+            return
+        }
+        for(let i = 0 ; i < dropMob.length ; i++){
+            const trimed = dropMob[i].mobName.replace(/ /g,"")
+            const fetched = fetchImageURL(trimed, data)
+            if(fetched){
+                setMobIMG((prev) => prev.concat(fetched))
+            }
+        }
+    },[dropMob, data])
 
 
     return (
@@ -74,11 +87,18 @@ const ItemPage = ({data}: DataListProps) => {
             </header>
                 <ItemDetails REQLEV={REQLEV} itemIMG={itemIMG} itemName={itemName} REQST={REQST} forSell={forSell} category={category}></ItemDetails>
             <div className="row-span-9 col-span-4 bg-red-900">
-            <header className="w-full h-[50px] text-xl text-white text-center">
-                <h2>드랍 몹</h2>
-            </header>
-                {/* <Image></Image> */}
-                <div>세부정보</div>
+                <header className="w-full h-[50px] text-xl text-white text-center">
+                    <h2>드랍 몹</h2>
+                </header>
+                {dropMob ? 
+                    dropMob.map((mob, i) => (
+                        <ol key={i}>
+                            <li>
+                                <ImageFallback imageUrl={mobIMG[i]} alt={dropMob[i].mobName} width={60} height={60} />
+                                <div>{mob.mobName}</div>
+                            </li>
+                        </ol>
+                )) : null}
             </div>
             <div className="row-span-9 col-span-2 bg-green-900">
                 <div>스텟</div>
