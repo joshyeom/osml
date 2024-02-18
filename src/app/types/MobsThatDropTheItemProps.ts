@@ -22,6 +22,7 @@ export interface MobsThatDropTheItemProps{
         physicalDefense: number
         speed: number
         summonType: number
+        elementalAttributes: string | undefined,
     }
     mobName: string
 }[]

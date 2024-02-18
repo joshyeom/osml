@@ -9,7 +9,11 @@ import { ItemProps } from "../types/ItemProps"
 import { StatsApi } from "../types/StatsApi"
 import ItemDetails from "./ItemDetails"
 import { MobsThatDropTheItemProps } from "../types/MobsThatDropTheItemProps"
-import ImageFallback from "./ImageFallback"
+import DropMobs from "./DropMobs"
+import { elementalCalculate } from "../_utils/elementalCalculate"
+import DropMobsStat from "./DropMobsStat"
+import Percentage from "./Percentage"
+
 
 const ItemPage = ({data}: DataListProps) => {
     const { name } = useParams()
@@ -22,6 +26,7 @@ const ItemPage = ({data}: DataListProps) => {
     const [forSell, setForSell] = useState<number>(0)
     const [category, setCategory] = useState<string>("")
     const [dropMob, setDropMob] = useState<MobsThatDropTheItemProps[] | null>(null)
+    const [elemental, setElmental] = useState<string[]>([])
 
     useEffect(() => {
         if(typeof name !== "string"){
@@ -71,9 +76,14 @@ const ItemPage = ({data}: DataListProps) => {
             if(fetched){
                 setMobIMG((prev) => prev.concat(fetched))
             }
+            const element = elementalCalculate(dropMob[i].mobMeta.elementalAttributes!);
+            if(element){
+                setElmental((prev) => prev.concat(element))
+            }else{
+                setElmental((prev) => prev.concat("노말"))
+            }
         }
     },[dropMob, data])
-
 
     return (
         <section className="w-full h-full grid grid-rows-10 grid-cols-10 mt-[350px]">
@@ -93,28 +103,31 @@ const ItemPage = ({data}: DataListProps) => {
                 <ol>
                 {dropMob ? 
                     dropMob.map((mob, i) => (
-                            <li key={i} className="h-[300px] flex flex-col justify-around items-center mb-[100px]">
-                                <div className="w-[150px] h-[150px] relative">
-                                    <ImageFallback imageUrl={mobIMG[i]} alt={dropMob[i].mobName}/>
-                                </div>
-                                <div className="text-xl font-semibold">{mob.mobName}</div>
-                                <div className="w-7/12 h-[30px] bg-yellow-500 flex justify-center items-center rounded">LEVEL {mob.mobMeta.level}</div>
-                                <div className="w-7/12 flex h-[30px] justify-between">
-                                    <div className="w-5/12 bg-red-500 flex justify-center items-center rounded">HP {mob.mobMeta.maxHP}</div>
-                                    <div className="w-5/12 bg-blue-500 flex justify-center items-center rounded">MP {mob.mobMeta.maxMP}</div>
-                                </div>
-                                <div  className="w-7/12 h-[30px] bg-green-500 flex justify-center items-center rounded">요구 명중률 {mob.mobMeta.accuracyRequiredToHit}</div>
-                            </li>
+                            <DropMobs key={mob.mobName} mobIMG={mobIMG[i]} mob={mob} ></DropMobs>
                         )) : null}
                 </ol>
             </div>
-            <div className="row-span-9 col-span-3 bg-green-900">
-                <div>스텟</div>
-                <div>세부정보</div>
+            <div className="row-span-9 col-span-3">
+                <header className="w-full h-[50px] text-xl text-center">
+                    <h2>스텟</h2>
+                </header>
+                <ol>
+                {dropMob ? 
+                    dropMob.map((mob, i) => (
+                            <DropMobsStat key={mob.mobName} mob={mob} elemental={elemental[i]}></DropMobsStat>
+                        )) : null}
+                </ol>
             </div>
-            <div className="row-span-9 col-span-2 bg-yellow-900">
-                <div>드랍 확률</div>
-                <div>세부정보</div>
+            <div className="row-span-9 col-span-2">
+                <header className="w-full h-[50px] text-xl text-center">
+                    <h2>확률</h2>
+                </header>
+                <ol>
+                    {dropMob ? 
+                        dropMob.map((mob) => (
+                            <Percentage key={mob.mobName} mob={mob}></Percentage>
+                        )) : null}
+                </ol>
             </div>
         </section>
     )

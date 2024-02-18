@@ -1,12 +1,16 @@
 import Image from "next/image"
-import { useEffect } from "react"
 import { ItemDetailsProps } from "../types/ItemDetailsProps"
+import { useState, useEffect } from "react"
+import { categoryTranslate } from "../_utils/categoryTranslate"
 
-const ItemDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, category}: ItemDetailsProps) => {
-
+const ItemDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, category}: ItemDetailsProps) => {  
+    const [categoryKr, setCategroyKr] = useState<string>()
+    
+    
     useEffect(() => {
-        REQST?.reqPOP
-    },[REQST])
+        const kr = categoryTranslate(category)
+        setCategroyKr(kr)
+    },[category])
     
     return(
     <div className="row-span-9 col-span-2 flex flex-col items-center">
@@ -24,7 +28,7 @@ const ItemDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, category}: Item
                         {REQLEV && REQST ?  
                             <ol className="text-s text-white">
                                     <li>REQ LEV: {REQLEV}</li>
-                                    <li>REQ POP: {REQST.reqPOP ?? 0}</li>
+                                    <li>REQ POP: {REQST.reqPOP ? REQST.reqPOP : 0}</li>
                                     <li>REQ STR: {REQST.reqSTR}</li>
                                     <li>REQ DEX: {REQST.reqDEX}</li>
                                     <li>REQ INT: {REQST.reqINT}</li>
@@ -35,17 +39,21 @@ const ItemDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, category}: Item
                     {REQST ? 
                         <>
                             <ol className="flex justify-between text-s text-white space-x-5 mb-[16px]">
-                                <li className={REQST.reqJob !== 0 ? "text-red-500": "text-white"}>초보자</li>
+                                <li className={REQST.reqJob !== 0 ? "text-red-500": "text-white"}>공용</li>
                                 <li className={REQST.reqJob !== 1 ? "text-red-500": "text-white"}>전사</li>
                                 <li className={REQST.reqJob !== 2 ? "text-red-500": "text-white"}>마법사</li>
-                                <li className={REQST.reqJob !== 3 ? "text-red-500": "text-white"}>궁수</li>
-                                <li className={REQST.reqJob !== 4 ? "text-red-500": "text-white"}>도적</li>
+                                <li className={REQST.reqJob !== 4 ? "text-red-500": "text-white"}>궁수</li>
+                                <li className={REQST.reqJob !== 9 ? "text-red-500": "text-white"}>도적</li>
                             </ol>
                             <ol className="text-lg text-white flex flex-col gap-[3px] text-center">
-                                <li>무기분류: {category === "Wand" ? "완드" : null}</li>
+                                <li>무기분류: {categoryKr}</li>
                                 <li>공격속도: {REQST.attackSpeed === 6 ? "보통" : null}</li>
                                 <li>공격력: +{REQST.incPAD}</li>
-                                <li>마력: +{REQST.incMAD}</li>
+                                {
+                                    REQST.incMAD ? 
+                                        <li>마력: +{REQST.incMAD}</li>
+                                    : null
+                                }
                                 <li>업그레이드 가능 횟수: {REQST.tuc}</li>
                                 <li>상점 판매가: {forSell}</li>
                             </ol>
