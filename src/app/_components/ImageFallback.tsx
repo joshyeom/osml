@@ -24,8 +24,7 @@ const ImageFallback:React.FC<ImageFallbackProps> = ({ imageUrl, alt}) => {
   }
   return (
     <Image
-      layout='fill'
-      objectFit='contain'
+      fill
       alt={alt}
       src={imgSrc ? fallbackSrc : imageUrl}
       onError={() => {

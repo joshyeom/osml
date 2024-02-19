@@ -15,6 +15,7 @@ export interface ItemProps{
                     }
                 }
                 itemTypeInfo:{
+                    overallCategory: string
                     subCategory: string
                 }
                 mobsThatDropTheItem: MobsThatDropTheItemProps[]
@@ -32,6 +33,7 @@ export interface ItemProps{
                 }
             }
             itemTypeInfo:{
+                overallCategory: string
                 subCategory: string
             }
             mobsThatDropTheItem: MobsThatDropTheItemProps[]

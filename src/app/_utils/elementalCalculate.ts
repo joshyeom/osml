@@ -11,6 +11,7 @@ export const elementalCalculate = (elemental: string) => {
         I: "얼음",
         H: "성",
         L: "전기",
+        S: "독"
     };
     const strength = []
     const weakness = []
