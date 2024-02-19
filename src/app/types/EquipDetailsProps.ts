@@ -1,9 +1,9 @@
-import { StatsApi } from "../types/StatsApi";
-export interface ItemDetailsProps {
+import { StatsApi } from "./StatsApi";
+export interface EquipDetailsProps {
     itemIMG: string;
     REQLEV: number;
     REQST: StatsApi | null;
     itemName: string;
     forSell: number;
-    category: string;
+    subCategory: string;
 }

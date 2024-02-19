@@ -7,7 +7,7 @@ import { fetchImageURL } from "../_utils/fetchImageURL"
 import { DataListProps } from "../types/DataListProps"
 import { ItemProps } from "../types/ItemProps"
 import { StatsApi } from "../types/StatsApi"
-import ItemDetails from "./ItemDetails"
+import EquipDetails from "./EquipDetails"
 import { MobsThatDropTheItemProps } from "../types/MobsThatDropTheItemProps"
 import DropMobs from "./DropMobs"
 import { elementalCalculate } from "../_utils/elementalCalculate"
@@ -24,15 +24,15 @@ const ItemPage = ({data}: DataListProps) => {
     const [REQST, setREQST] = useState<StatsApi | null>(null)
     const [REQLEV, setREQLEV] = useState<number>(0)
     const [forSell, setForSell] = useState<number>(0)
-    const [category, setCategory] = useState<string>("")
+    const [subCategory, setSubCategory] = useState<string>("")
     const [dropMob, setDropMob] = useState<MobsThatDropTheItemProps[] | null>(null)
     const [elemental, setElmental] = useState<string[]>([])
+
 
     useEffect(() => {
         if(typeof name !== "string"){
             return
         }
-
         const fetchData = async () => {
             try{
                 const fetchedDetails = await fetchDetails(name)
@@ -55,14 +55,13 @@ const ItemPage = ({data}: DataListProps) => {
         if(details === null){
             return
         }
-        
-        const itemInfo = details.result.exactMatchInfo.itemInfo[0]
+        const itemInfo = details.result.exactMatchInfo.itemInfo[0] !== undefined ? details.result.exactMatchInfo.itemInfo[0] : details.result.itemInfo[0];
         const itemMeta = itemInfo.itemMeta
         setItemName(itemInfo.itemName)
         setREQLEV(itemMeta.chair.reqLevel)
         setREQST(itemMeta.equip)
         setForSell(itemMeta.shop.price)
-        setCategory(itemInfo.itemTypeInfo.subCategory)
+        setSubCategory(itemInfo.itemTypeInfo.subCategory)
         setDropMob(itemInfo.mobsThatDropTheItem)
     },[details])
     
@@ -87,15 +86,17 @@ const ItemPage = ({data}: DataListProps) => {
 
     return (
         <section className="w-full h-full grid grid-rows-10 grid-cols-10 mt-[350px]">
-            <header className="row-span-1 col-span-10 flex data-center justify-center items-center">
-                {itemIMG ? 
-                    <Image src={itemIMG} alt={itemIMG} width={30} height={30}></Image>
-                : null}
-                {details ?   
-                    <div>{itemName}</div>
-                : null}
+            <header className="h-[120px] row-span-1 col-span-10 flex data-center justify-center items-center">
+                <div className="flex justify-between items-center">
+                    {itemIMG ? 
+                        <Image src={itemIMG} alt={itemIMG} width={80} height={80}></Image>
+                        : null}
+                    {details ?   
+                        <span className="text-3xl ml-[30px]">{itemName}</span>
+                        : null}
+                </div>
             </header>
-                <ItemDetails REQLEV={REQLEV} itemIMG={itemIMG} itemName={itemName} REQST={REQST} forSell={forSell} category={category}></ItemDetails>
+                <EquipDetails REQLEV={REQLEV} itemIMG={itemIMG} itemName={itemName} REQST={REQST} forSell={forSell} subCategory={subCategory}></EquipDetails>
             <div className="row-span-9 col-span-3">
                 <header className="w-full h-[50px] text-xl text-center">
                     <h2>드랍 몹</h2>

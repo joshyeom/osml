@@ -20,5 +20,21 @@ export interface ItemProps{
                 mobsThatDropTheItem: MobsThatDropTheItemProps[]
             }[]
         }
+        itemInfo: {
+            itemName: string,
+            itemMeta:{
+                chair: {
+                    reqLevel: number
+                },
+                equip: StatsApi
+                shop: {
+                    price: number
+                }
+            }
+            itemTypeInfo:{
+                subCategory: string
+            }
+            mobsThatDropTheItem: MobsThatDropTheItemProps[]
+        }[]
     }
 }
