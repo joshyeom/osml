@@ -6,7 +6,8 @@ export const ItemList: React.FC<DataProps>  = ({name, imageUrl, id, category, ke
     const router = useRouter()
 
     const routeHandler = (name: string) => {
-        router.push(`/itemPage/${name}`);
+        const encodedName = encodeURIComponent(name);
+        router.push(`/itemPage/${encodedName}`);
     }
 
     if(!name.includes(keyword)){

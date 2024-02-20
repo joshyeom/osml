@@ -5,6 +5,7 @@ export interface ItemProps{
         exactMatchInfo: {
             itemInfo: {
                 itemName: string,
+                itemDescription: string,
                 itemMeta:{
                     chair: {
                         reqLevel: number
@@ -18,11 +19,12 @@ export interface ItemProps{
                     overallCategory: string
                     subCategory: string
                 }
-                mobsThatDropTheItem: MobsThatDropTheItemProps[]
+                mobsThatDropTheItem: MobsThatDropTheItemProps[],
             }[]
         }
         itemInfo: {
             itemName: string,
+            itemDescription: string,
             itemMeta:{
                 chair: {
                     reqLevel: number

@@ -28,7 +28,7 @@ const ItemPage = ({data}: DataListProps) => {
     const [subCategory, setSubCategory] = useState<string>("")
     const [dropMob, setDropMob] = useState<MobsThatDropTheItemProps[] | null>(null)
     const [elemental, setElmental] = useState<string[]>([])
-
+    const [description, setDescription] = useState<string>("")
 
     useEffect(() => {
         if(typeof name !== "string"){
@@ -67,7 +67,9 @@ const ItemPage = ({data}: DataListProps) => {
             setForSell(itemMeta.shop.price)
             setSubCategory(itemInfo.itemTypeInfo.subCategory)
         }else if(itemInfo.itemTypeInfo.overallCategory === "Use"){
-
+            setREQST(itemMeta.equip)
+            setForSell(itemMeta.shop.price)
+            setDescription(itemInfo.itemDescription)
         }
     },[details])
     
@@ -113,7 +115,7 @@ const ItemPage = ({data}: DataListProps) => {
                         : null
                     }
                     {overallCategory === "Use" ? 
-                        <UseDetails itemIMG={itemIMG} itemName={itemName} forSell={forSell} subCategory={subCategory}></UseDetails>
+                        <UseDetails itemIMG={itemIMG} itemName={itemName} forSell={forSell} REQST={REQST} subCategory={subCategory} description={description}></UseDetails>
                         : null
                     }
                 </div>

@@ -20,4 +20,7 @@ export interface StatsApi {
     reqSTR: number
     tuc: number
     vslot: string
+    incACC: number
+    incMMP: number
+    incMHP: number 
 } 
