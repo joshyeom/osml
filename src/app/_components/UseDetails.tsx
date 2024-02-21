@@ -24,12 +24,15 @@ const UseDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST
                             : null}
                         </div>
                         <div className="">
+                            {REQST ? <RenderStats REQST={REQST}></RenderStats> : null}
+                            {forSell ? 
+                                <div className="text-center">상점 판매가 {forSell}</div>
+                            :null}
                             {description ?
-                                <div className="w-[120px] flex justify-center items-center mb-3">
+                                <div className="w-[120px] flex justify-center items-center mb-3 text-gray-400">
                                     <span>{description}</span>
                                 </div>
                             :null}
-                            {REQST ? <RenderStats REQST={REQST}></RenderStats> : null}
                         </div>
                     </div>
                 </div>

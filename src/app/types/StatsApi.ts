@@ -1,4 +1,5 @@
 export interface StatsApi {
+    [key: string]: string | number
     attack: number
     attackSpeed: number
     incSTR: number

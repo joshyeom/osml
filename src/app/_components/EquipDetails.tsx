@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { categoryTranslate } from "../_utils/categoryTranslate"
 
 const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: EquipDetailsProps) => {  
+    console.log(REQST)
     const [categoryKr, setCategroyKr] = useState<string>("")
     const [attackSpeed, setAttackSpeed] = useState<string>("")
     
@@ -51,7 +52,7 @@ const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: 
                         <>
                             <ol className="flex justify-between text-s text-white space-x-5 mb-[16px]">
                                 <li className={REQST.reqJob === 0 ? "text-white": "text-red-500"}>공용</li>
-                                <li className={REQST.reqJob === 1 ? "text-white": "text-red-500"}>전사</li>
+                                <li className={REQST.reqJob === 1 || REQST.reqJob === 3 ? "text-white": "text-red-500"}>전사</li>
                                 <li className={REQST.reqJob === 2 ? "text-white": "text-red-500"}>마법사</li>
                                 <li className={REQST.reqJob === 4 ? "text-white": "text-red-500"}>궁수</li>
                                 <li className={REQST.reqJob === 9 || REQST.reqJob === 8 ? "text-white": "text-red-500"}>도적</li>

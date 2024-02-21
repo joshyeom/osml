@@ -94,8 +94,8 @@ const ItemPage = ({data}: DataListProps) => {
     },[dropMob, data])
 
     return (
-        <section className="w-full mt-[350px] bg-[#2B2B2B] border-solid border-[1px] border-slate-600">
-            <header className="h-[120px] flex data-center justify-center items-center">
+        <section className="w-full mt-[350px] bg-[#2B2B2B]">
+            <header className="h-[120px] flex data-center justify-center border-solid border-[1px] border-slate-600 items-center">
                 <div className="flex justify-between items-center">
                     {itemIMG ? 
                         <Image src={itemIMG} alt={itemIMG} width={80} height={80}></Image>
@@ -106,9 +106,9 @@ const ItemPage = ({data}: DataListProps) => {
                 </div>
             </header>
             <div className="w-full h-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
-                <div className="row-span-10 col-span-2">
-                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center mb-10">
-                        <h2>아이템</h2>
+                <div className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
+                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                        <h2 className="font-semibold">아이템</h2>
                     </header>
                     {overallCategory === "Equip" ? 
                         <EquipDetails REQLEV={REQLEV} itemIMG={itemIMG} itemName={itemName} REQST={REQST} forSell={forSell} subCategory={subCategory}></EquipDetails>
@@ -120,8 +120,8 @@ const ItemPage = ({data}: DataListProps) => {
                     }
                 </div>
             <div className="row-span-10 col-span-3">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center mb-10">
-                    <h2>드랍 몹</h2>
+                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                    <h2 className="font-semibold">드랍 몹</h2>
                 </header>
                 <ol className="bg-[#333333]">
                 {dropMob ? 
@@ -131,8 +131,8 @@ const ItemPage = ({data}: DataListProps) => {
                 </ol>
             </div>
             <div className="row-span-10 col-span-3">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center mb-10">
-                    <h2>몹 스텟</h2>
+                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                    <h2 className="font-semibold">몹 스텟</h2>
                 </header>
                 <ol className="bg-[#333333]">
                 {dropMob ? 
@@ -142,8 +142,8 @@ const ItemPage = ({data}: DataListProps) => {
                 </ol>
             </div>
             <div className="row-span-10 col-span-2">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center mb-10">
-                    <h2>드랍 확률</h2>
+                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                    <h2 className="font-semibold">드랍 확률</h2>
                 </header>
                 <ol className="bg-[#333333]">
                     {dropMob ? 
