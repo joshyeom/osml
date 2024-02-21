@@ -27,7 +27,9 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
 
     return (
         <section className={`${width} flex flex-col items-center mt-14 ${position}`}>
-            <Image src="https://osmlib.com/d5386814b15c0b011cd619fd05125d45.png" alt="logo" width={400} height={100}/>
+            <figure>
+                <Image src="https://osmlib.com/d5386814b15c0b011cd619fd05125d45.png" alt="logo" width={400} height={100}/>
+            </figure>
             <input 
                 type="text" 
                 onChange={changeHandler}

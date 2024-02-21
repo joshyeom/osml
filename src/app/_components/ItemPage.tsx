@@ -77,7 +77,6 @@ const ItemPage = ({data}: DataListProps) => {
         if(dropMob === null){
             return
         }
-        console.log(dropMob)
         for(let i = 0 ; i < dropMob.length ; i++){
             const trimed = dropMob[i].mobName.replace(/ /g,"")
             const fetched = fetchImageURL(trimed, data)
@@ -96,17 +95,17 @@ const ItemPage = ({data}: DataListProps) => {
     return (
         <section className="w-full mt-[350px] bg-[#2B2B2B]">
             <header className="h-[120px] flex data-center justify-center border-solid border-[1px] border-slate-600 items-center">
-                <div className="flex justify-between items-center">
+                <figure className="flex justify-between items-center">
                     {itemIMG ? 
                         <Image src={itemIMG} alt={itemIMG} width={80} height={80}></Image>
                         : null}
                     {details ?   
-                        <span className="text-3xl ml-[30px]">{itemName}</span>
+                        <figcaption className="text-3xl ml-[30px]">{itemName}</figcaption>
                         : null}
-                </div>
+                </figure>
             </header>
-            <div className="w-full h-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
-                <div className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
+            <section className="w-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
+                <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">아이템</h2>
                     </header>
@@ -118,41 +117,41 @@ const ItemPage = ({data}: DataListProps) => {
                         <UseDetails itemIMG={itemIMG} itemName={itemName} forSell={forSell} REQST={REQST} subCategory={subCategory} description={description}></UseDetails>
                         : null
                     }
-                </div>
-            <div className="row-span-10 col-span-3">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
-                    <h2 className="font-semibold">드랍 몹</h2>
-                </header>
-                <ol className="bg-[#333333]">
-                {dropMob ? 
-                    dropMob.map((mob, i) => (
-                            <DropMobs key={mob.mobName} mobIMG={mobIMG[i]} mob={mob} ></DropMobs>
-                        )) : null}
-                </ol>
-            </div>
-            <div className="row-span-10 col-span-3">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
-                    <h2 className="font-semibold">몹 스텟</h2>
-                </header>
-                <ol className="bg-[#333333]">
-                {dropMob ? 
-                    dropMob.map((mob, i) => (
-                            <DropMobsStat key={mob.mobName} mob={mob} elemental={elemental[i]}></DropMobsStat>
-                        )) : null}
-                </ol>
-            </div>
-            <div className="row-span-10 col-span-2">
-                <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
-                    <h2 className="font-semibold">드랍 확률</h2>
-                </header>
-                <ol className="bg-[#333333]">
+                </section>
+                <section className="row-span-10 col-span-3">
+                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                        <h2 className="font-semibold">드랍 몹</h2>
+                    </header>
+                    <ol className="bg-[#333333]">
                     {dropMob ? 
-                        dropMob.map((mob) => (
-                            <Percentage key={mob.mobName} mob={mob}></Percentage>
-                        )) : null}
-                </ol>
-            </div>
-        </div>
+                        dropMob.map((mob, i) => (
+                                <DropMobs key={mob.mobName} mobIMG={mobIMG[i]} mob={mob} ></DropMobs>
+                            )) : null}
+                    </ol>
+                </section>
+                <section className="row-span-10 col-span-3">
+                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                        <h2 className="font-semibold">몹 스텟</h2>
+                    </header>
+                    <ol className="bg-[#333333]">
+                    {dropMob ? 
+                        dropMob.map((mob, i) => (
+                                <DropMobsStat key={mob.mobName} mob={mob} elemental={elemental[i]}></DropMobsStat>
+                            )) : null}
+                    </ol>
+                </section>
+                <section className="row-span-10 col-span-2">
+                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                        <h2 className="font-semibold">드랍 확률</h2>
+                    </header>
+                    <ol className="bg-[#333333]">
+                        {dropMob ? 
+                            dropMob.map((mob) => (
+                                <Percentage key={mob.mobName} mob={mob}></Percentage>
+                            )) : null}
+                    </ol>
+                </section>
+            </section>
         </section>
     )
 }

@@ -28,36 +28,36 @@ const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: 
     console.log(REQST)
 
     return(
-    <div className="row-span-9 col-span-2 flex flex-col items-center">
-                <div className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
-                    <div className="text-xl mb-[16px] text-white font-semibold">{itemName}</div>
+            <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
+                <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
+                    <header className="text-xl mb-[16px] text-white font-semibold">{itemName}</header>
                     <div className="w-full flex mb-[16px] justify-around">
-                        <div className="w-[150px] h-[150px] flex justify-center items-center bg-transparent">
+                        <figure className="w-[150px] h-[150px] flex justify-center items-center bg-transparent">
                             {itemIMG ? 
-                                <Image src={itemIMG} alt={itemName} width={100} height={100}></Image>
+                                    <Image src={itemIMG} alt={itemName} width={100} height={100}></Image>
                             : null}
-                        </div>
+                        </figure>
                         {REQLEV && REQST ?  
-                            <ol className="text-s text-white">
+                            <ul className="text-s text-white bg-transparent">
                                     <li>REQ LEV: {REQLEV}</li>
                                     <li>REQ POP: {REQST.reqPOP ? REQST.reqPOP : 0}</li>
                                     <li>REQ STR: {REQST.reqSTR}</li>
                                     <li>REQ DEX: {REQST.reqDEX}</li>
                                     <li>REQ INT: {REQST.reqINT}</li>
                                     <li>REQ LUK: {REQST.reqLUK}</li>
-                            </ol>
+                            </ul>
                         : null}
                     </div>
                     {REQST ? 
                         <>
-                            <ol className="flex justify-between text-s text-white space-x-5 mb-[16px]">
+                            <ul className="flex justify-between text-s text-white space-x-5 mb-[16px] bg-transparent">
                                 <li className={REQST.reqJob === 0 ? "text-white": "text-red-500"}>공용</li>
                                 <li className={REQST.reqJob === 1 || REQST.reqJob === 3 ? "text-white": "text-red-500"}>전사</li>
                                 <li className={REQST.reqJob === 2 ? "text-white": "text-red-500"}>마법사</li>
                                 <li className={REQST.reqJob === 4 ? "text-white": "text-red-500"}>궁수</li>
                                 <li className={REQST.reqJob === 9 || REQST.reqJob === 8 ? "text-white": "text-red-500"}>도적</li>
-                            </ol>
-                            <ol className="text-lg text-white flex flex-col gap-[3px] text-center">
+                            </ul>
+                            <ul className="text-lg text-white flex flex-col gap-[3px] text-center bg-transparent">
                                 <li>장비분류: {categoryKr}</li>
                                 {REQST.attackSpeed ? 
                                     <li>공격속도: {attackSpeed}</li>
@@ -88,11 +88,11 @@ const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: 
                                 : null}
                                 <li>업그레이드 가능 횟수: {REQST.tuc}</li>
                                 <li>상점 판매가: {forSell}</li>
-                            </ol>
+                            </ul>
                         </>
                     : null}
-                </div>
-            </div>
+                </section>
+            </article>
     )
 }
 

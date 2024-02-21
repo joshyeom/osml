@@ -24,19 +24,15 @@ const RenderStats = ({REQST} :REQSTProps) => {
     ];
   
     return (
-      <div className="flex justify-center items-center">
-        <ol className="w-[120px] flex flex-col justify-between items-center">
+        <p className="flex flex-col justify-between items-center mb-2">
           {stats.map(stat => (
             REQST[stat.key] ? (
-              <li key={stat.key} className="mb-1">
-                <span>
+              <span key={stat.key}>
                   {stat.label}{REQST[stat.key]}
-                </span>
-              </li>
+              </span>
             ) : null
           ))}
-        </ol>
-      </div>
+        </p>
     );
   };
   

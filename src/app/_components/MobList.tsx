@@ -11,15 +11,15 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     const end = name.slice(index + keyword.length, name.length)
     return (
     <li key={name} className="cursor-pointer relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600">
-        <div className="w-[50px] h-[50px] relative">
+        <figure className="w-[50px] h-[50px] relative">
             <ImageFallback imageUrl={imageUrl} alt={name}/>
-        </div>
-    <div className="pl-7 text-lg text-white leading-10">
-        <span>{front}</span>
-        <span className="text-red-600 group-hover:hidden">{highlight}</span>
-        <span className="text-white font-semibold hidden group-hover:inline">{highlight}</span>
-        <span>{end}</span>
-    </div>
+        </figure>
+        <p className="pl-7 text-lg text-white leading-10">
+            <span>{front}</span>
+            <span className="text-red-600 group-hover:hidden">{highlight}</span>
+            <span className="text-white font-semibold hidden group-hover:inline">{highlight}</span>
+            <span>{end}</span>
+        </p>
     </li>
     )
 }
