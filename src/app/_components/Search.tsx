@@ -11,14 +11,23 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
     const [keyword, setKeyword] = useState<string>("")
     const [itemList, setItemList] = useState<SearchProps["data"]>([])
     const [mobList, setMobList] = useState<SearchProps["data"]>([])
-    const [xy,setXY] = useState({x:0,y:0})
+    const [clicked, setClicked] = useState<boolean>(false)
+    const mouseDownRef = useRef<HTMLDivElement | null>(null)
+    const mouseUpRef = useRef<HTMLDivElement | null>(null)
     const mouseRef = useRef<HTMLDivElement>(null)
+    
 
+    let x = 0;
+    let y = 0;
+
+    
     useEffect(() => {
         let animationFrameId: any;
-
-        const handleMouseMove = (event:MouseEvent) => {
-            setXY({x:event.pageX, y:event.pageY});
+        const handleMouseMove = (e:MouseEvent) => {
+            if(mouseRef.current){
+                mouseRef.current.style.top = `${e.pageY - y + 1}px`
+                mouseRef.current.style.left = `${e.pageX - x + 1}px`
+            }
         };
         
         const animate = () => {
@@ -31,7 +40,35 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
             cancelAnimationFrame(animationFrameId);
             window.removeEventListener('mousemove', (e) => handleMouseMove(e));
         };
-      }, [xy]);
+      }, [x, y]);
+
+
+      useEffect(() => {
+        const mouseDownHandler = () => {
+            if(mouseDownRef.current){
+               mouseDownRef.current.style.display = "block"
+            }
+            if(mouseUpRef.current){
+                mouseUpRef.current.style.display = "none"
+            }
+        }
+
+        const mouseUpHandler = () => {
+            if(mouseDownRef.current){
+                mouseDownRef.current.style.display = "none"
+            }
+            if(mouseUpRef.current){
+                mouseUpRef.current.style.display = "block"
+            }
+        }
+
+        window.addEventListener("mousedown", mouseDownHandler)
+        window.addEventListener("mouseup", mouseUpHandler)
+        return(() => {
+            window.removeEventListener('mousedown', mouseDownHandler);
+            window.removeEventListener('mouseup', mouseUpHandler);
+        })
+      })
 
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.currentTarget.value)
@@ -50,8 +87,13 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
 
     return (
         <>
-        <div ref={mouseRef} className={`absolute`} style={{left: xy.x + 1, top: xy.y + 1 , zIndex: 10}}>
-            <Image src="/ezgif.com-webp-to-png-converter.png" alt="cursor" width={50} height={50}/>
+        <div ref={mouseRef} className="absolute z-10">
+                    <div ref={mouseUpRef} onDragStart={(e) => e.preventDefault()}>
+                        <Image src="/ezgif.com-webp-maker.webp" alt="cursor" width={50} height={50}/>
+                    </div>
+                    <div ref={mouseDownRef} className="hidden" onDragStart={(e) => e.preventDefault()}>
+                        <Image src="/ezgif.com-png-to-webp-converter.webp" alt="cursorClick" width={50} height={50}/>  
+                    </div>
         </div>
             <section className={`${width} flex flex-col items-center mt-14 ${position}`}>
                 <figure>
