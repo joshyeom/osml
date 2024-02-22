@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import { categoryTranslate } from "../_utils/categoryTranslate"
 
 const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: EquipDetailsProps) => {  
-    console.log(REQST)
     const [categoryKr, setCategroyKr] = useState<string>("")
     const [attackSpeed, setAttackSpeed] = useState<string>("")
     
@@ -25,7 +24,6 @@ const EquipDetails = ({itemIMG, REQLEV, REQST, itemName, forSell, subCategory}: 
             case 4: setAttackSpeed("빠름(5)")
         }
     },[REQST])
-    console.log(REQST)
 
     return(
             <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">

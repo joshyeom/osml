@@ -12,12 +12,16 @@
 
 body {
     color: white;
-    min-height: 100vh;
     min-width: 400px;
     background-color: rgb(54, 57, 63);
     margin: 0 auto; 
     overflow-x: hidden;
     position: relative;
+    cursor: none;
+}
+
+input {
+    cursor: none;
 }
 
 ul {
