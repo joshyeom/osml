@@ -13,7 +13,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="w-screen flex justify-center align-center relative">{children}</body>
+      <body>{children}</body>
     </html>
   )
 }

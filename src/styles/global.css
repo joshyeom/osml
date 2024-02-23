@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-
+html{
+    cursor: url("https://velog.velcdn.com/images/yeomjung95/post/0b95d42e-f0da-4bf0-abb3-36c1c1c68501/image.webp"), auto;
+}
 
 * { 
     margin: 0;
@@ -12,16 +14,14 @@
 
 body {
     color: white;
+    position: relative;
+    display: flex;
+    justify-content: center;
     min-width: 400px;
     background-color: rgb(54, 57, 63);
     margin: 0 auto; 
     overflow-x: hidden;
     position: relative;
-    cursor: none;
-}
-
-input {
-    cursor: none;
 }
 
 ul {
