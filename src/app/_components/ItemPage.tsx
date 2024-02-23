@@ -14,6 +14,7 @@ import { elementalCalculate } from "../_utils/elementalCalculate"
 import DropMobsStat from "./DropMobsStat"
 import Percentage from "./Percentage"
 import UseDetails from "./UseDetails"
+import EtcDetails from "./EtcDetails"
 
 const ItemPage = ({data}: DataListProps) => {
     const { name } = useParams()
@@ -70,6 +71,9 @@ const ItemPage = ({data}: DataListProps) => {
             setREQST(itemMeta.equip)
             setForSell(itemMeta.shop.price)
             setDescription(itemInfo.itemDescription)
+        }else if(itemInfo.itemTypeInfo.overallCategory === "Etc"){
+            setForSell(itemMeta.shop.price)
+            setDescription(itemInfo.itemDescription)
         }
     },[details])
     
@@ -115,6 +119,10 @@ const ItemPage = ({data}: DataListProps) => {
                     }
                     {overallCategory === "Use" ? 
                         <UseDetails itemIMG={itemIMG} itemName={itemName} forSell={forSell} REQST={REQST} subCategory={subCategory} description={description}></UseDetails>
+                        : null
+                    }
+                    {overallCategory === "Etc" ? 
+                        <EtcDetails itemIMG={itemIMG} itemName={itemName} forSell={forSell} REQST={REQST} subCategory={subCategory} description={description}></EtcDetails>
                         : null
                     }
                 </section>

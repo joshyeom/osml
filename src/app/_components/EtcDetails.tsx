@@ -2,7 +2,7 @@ import Image from "next/image";
 import { StatsApi } from "../types/StatsApi";
 import RenderStats from "./RenderStats";
 
-export interface UseDetailsProps {
+export interface EtcDetailsProps {
     itemIMG: string;
     itemName: string;
     forSell: number;
@@ -12,7 +12,7 @@ export interface UseDetailsProps {
 }
 
 
-const UseDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST}: UseDetailsProps) => {
+const EtcDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST}: EtcDetailsProps) => {
     return(
             <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
                 <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
@@ -40,4 +40,4 @@ const UseDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST
         )
 }
 
-export default UseDetails
+export default EtcDetails

@@ -1,7 +1,15 @@
 import { DataProps } from "../types/DataProps"
 import ImageFallback from "./ImageFallback"
+import { useRouter } from "next/router"
 
 export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
+    // const router = useRouter()
+
+    // const routeHandler = (name: string) => {
+    //     const encodedName = encodeURIComponent(name);
+    //     router.push(`/mobPage/${encodedName}`);
+    // }
+    
     if(!name.includes(keyword)){
         return
     }
@@ -10,7 +18,7 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     const highlight = name.slice(index, index + keyword.length)
     const end = name.slice(index + keyword.length, name.length)
     return (
-    <li key={name} className="relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600">
+    <li key={name} onClick={() => routeHandler(name)} className="relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600">
         <figure className="w-[50px] h-[50px] relative">
             <ImageFallback imageUrl={imageUrl} alt={name}/>
         </figure>

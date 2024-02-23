@@ -1,17 +1,17 @@
 import Search from "@/app/_components/Search";
-import ItemPage from "../../../_components/ItemPage";
+import MobPage from "../../../_components/MobPage";
 import { getList } from "@/app/api/getList";
 
 
-const ItemHome = async () => {
+const MobMain = async () => {
     const data = await getList()
     return (
         <main className="w-[1620px] flex flex-col items-center">
             <Search position={"absolute"} width={"w-[280px]"} data={data}></Search>
-            <ItemPage data={data}></ItemPage>
+            <MobPage data={data}></MobPage>
         </main>
     )
 }
 
 
-export default ItemHome
+export default MobMain
