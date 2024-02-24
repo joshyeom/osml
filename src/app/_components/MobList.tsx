@@ -1,14 +1,13 @@
 import { DataProps } from "../types/DataProps"
 import ImageFallback from "./ImageFallback"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
-    // const router = useRouter()
-
-    // const routeHandler = (name: string) => {
-    //     const encodedName = encodeURIComponent(name);
-    //     router.push(`/mobPage/${encodedName}`);
-    // }
+    const router = useRouter()
+    const routeHandler = (name: string) => {
+        const encodedName = encodeURIComponent(name);
+        router.push(`/mobPage/${encodedName}`);
+    }
     
     if(!name.includes(keyword)){
         return

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation"
 
 export const ItemList: React.FC<DataProps>  = ({name, imageUrl, id, category, keyword}) => {
     const router = useRouter()
-
     const routeHandler = (name: string) => {
         const encodedName = encodeURIComponent(name);
         router.push(`/itemPage/${encodedName}`);
