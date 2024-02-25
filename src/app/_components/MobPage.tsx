@@ -71,17 +71,34 @@ const MobPage = ({data}: DataListProps) => {
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">몹</h2>
                     </header>
-                    {mobDescription ? 
-                        <article className="row-span-10 col-span-3 flex flex-col items-center pt-5">
+                    {details ? 
+                        <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
                         <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
                             <header className="text-xl mb-[16px] text-white font-semibold">{mobName}</header>
-                            <div className="w-full flex mb-[16px] justify-around">
-                                <figure className="w-[150px] h-[150px] flex justify-center items-center bg-transparent">
+                            <div className="w-full flex flex-col mb-[16px] justify-around">
+                                <figure className="w-full h-[150px] flex justify-center items-center bg-transparent">
                                     {mobImage && mobName ? 
-                                            <Image src={mobImage} alt={mobName} width={100} height={100}></Image>
+                                        <Image src={mobImage} alt={mobName} width={80} height={80}></Image>
                                     : null}
                                 </figure>
+                                <article className="w-full flex flex-col justify-center">
+                                    {mobDescription ?
+                                        <p className="flex justify-center items-center mb-3 text-gray-400">
+                                            {mobDescription}
+                                        </p>
+                                    :null}
+                                </article>
                             </div>
+                                {mobMeta ? 
+                                    <ol>
+                                        <li>{mobMeta.level}</li>
+                                        <li>{mobMeta.maxHP}</li>
+                                        <li>{mobMeta.maxMP}</li>
+                                        <li>{mobMeta.exp}</li>
+                                        <li>{mobMeta.accuracyRequiredToHit}</li>
+                                        <li>{mobMeta.elementalAttributes}</li>
+                                    </ol>
+                                : null}
                         </section>
                     </article>
                         : null
