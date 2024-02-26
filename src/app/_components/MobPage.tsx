@@ -7,6 +7,9 @@ import { ItemProps } from "../types/ItemProps"
 import { fetchImageURL } from "../_utils/fetchImageURL"
 import { MobInfoProps } from "../types/MobInfoProps"
 import Image from "next/image"
+import { elementalCalculate } from "../_utils/elementalCalculate"
+import MobMeta from "./MobMeta"
+import ImageFallback from "./ImageFallback"
 
 const MobPage = ({data}: DataListProps) => {
     const { name } = useParams()
@@ -18,6 +21,9 @@ const MobPage = ({data}: DataListProps) => {
     const [drops, setDrops] = useState<MobInfoProps["mobInfo"][0]["drops"] | null>(null)
     const [dropItems, setDropItems] = useState<MobInfoProps["mobInfo"][0]["drops"]["items"] | null>(null)
     const [mobDescription, setMobDescription] = useState<MobInfoProps["mobInfo"][0]["mobDescription"] | null>(null)
+    const [elemental, setElemental] = useState<string | null>(null)
+    const [dropIMG, setDropIMG] = useState<string[]>([])
+
     useEffect(() => {
         if(typeof name !== "string"){
             return
@@ -51,7 +57,28 @@ const MobPage = ({data}: DataListProps) => {
         setDrops(mobInfo.drops)
         setDropItems(mobInfo.drops.items)
         setMobDescription(mobInfo.mobDescription)
+        const element = elementalCalculate(mobInfo.mobMeta.elementalAttributes!);
+        if(element){
+            setElemental(element)
+        }else{
+            setElemental("노말")
+        }
     },[details])
+
+
+    useEffect(() => {
+        if(dropItems === null){
+            return
+        }
+        for(let i = 0 ; i < dropItems.length ; i++){
+            const fetched = fetchImageURL(dropItems[i].itemName, data)
+            if(fetched){
+                setDropIMG((prev) => prev.concat(fetched))
+            }else{
+                setDropIMG((prev) => prev.concat(""))
+            }
+        }
+    },[dropItems, data])
 
 
     return (
@@ -74,30 +101,8 @@ const MobPage = ({data}: DataListProps) => {
                     {details ? 
                         <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
                         <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
-                            <header className="text-xl mb-[16px] text-white font-semibold">{mobName}</header>
-                            <div className="w-full flex flex-col mb-[16px] justify-around">
-                                <figure className="w-full h-[150px] flex justify-center items-center bg-transparent">
-                                    {mobImage && mobName ? 
-                                        <Image src={mobImage} alt={mobName} width={80} height={80}></Image>
-                                    : null}
-                                </figure>
-                                <article className="w-full flex flex-col justify-center">
-                                    {mobDescription ?
-                                        <p className="flex justify-center items-center mb-3 text-gray-400">
-                                            {mobDescription}
-                                        </p>
-                                    :null}
-                                </article>
-                            </div>
-                                {mobMeta ? 
-                                    <ol>
-                                        <li>{mobMeta.level}</li>
-                                        <li>{mobMeta.maxHP}</li>
-                                        <li>{mobMeta.maxMP}</li>
-                                        <li>{mobMeta.exp}</li>
-                                        <li>{mobMeta.accuracyRequiredToHit}</li>
-                                        <li>{mobMeta.elementalAttributes}</li>
-                                    </ol>
+                                {mobMeta && mobName && mobDescription && elemental ? 
+                                        <MobMeta mobName={mobName} mobImage={mobImage} mobDescription={mobDescription} mobMeta={mobMeta} elemental={elemental}/>
                                 : null}
                         </section>
                     </article>
@@ -109,6 +114,16 @@ const MobPage = ({data}: DataListProps) => {
                         <h2 className="font-semibold">아이템</h2>
                     </header>
                     <ol className="bg-[#333333]">
+                        {drops ? 
+                            drops.items.map((item, i) => (
+                                <li key={item.itemName} className="h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600">
+                                    <figure className="w-[150px] h-[150px] relative">
+                                        <Image src={dropIMG[i]} alt={item.itemName} width={80} height={80}/>
+                                    </figure>
+                                    <div><span className="text-xl font-semibold">{item.itemName}</span></div>
+                                </li>
+                            ))
+                        : null}
                     </ol>
                 </section>
                 <section className="row-span-10 col-span-3">

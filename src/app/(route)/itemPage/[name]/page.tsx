@@ -2,7 +2,6 @@ import Search from "@/app/_components/Search";
 import ItemPage from "../../../_components/ItemPage";
 import { getList } from "@/app/api/getList";
 
-
 const ItemHome = async () => {
     const data = await getList()
     return (
