@@ -62,13 +62,22 @@ export interface ItemProps{
                               subCategory: string
                           }
                           itemMeta:{
-                              chair: {
-                                  reqLevel: number
-                              },
-                              equip: StatsApi
-                              shop: {
-                                  price: number
-                              }
+                            consumeSpec: {
+                                hpR: string,
+                                mpR: string,
+                                pad: string,
+                                pdd: string,
+                                mad: string,
+                                hp: string,
+                                mp: string
+                            },
+                            chair: {
+                                reqLevel: number
+                            },
+                            equip: StatsApi
+                            shop: {
+                                price: number
+                            }
                           },
                           dropChance: string,
                           drops: {
@@ -83,6 +92,13 @@ export interface ItemProps{
             itemName: string,
             itemDescription: string,
             itemMeta:{
+                consumeSpec: {
+                    hpR: string,
+                    mpR: string,
+                    pad: string,
+                    pdd: string,
+                    mad: string,
+                },
                 chair: {
                     reqLevel: number
                 },

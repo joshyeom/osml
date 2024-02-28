@@ -29,7 +29,7 @@ const MobMeta = ({mobName, mobImage, mobDescription, mobMeta, elemental}: mobMet
                     </article>
                 </div>
             {mobMeta ? 
-            <section className="h-[400px] py-[20px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600">
+            <section className="h-[400px] py-[20px] flex flex-col justify-around items-center border-solid border-slate-600">
                     <div className="w-[250px] flex h-[30px] justify-between">
                         <div className="w-[122px] bg-red-500 flex justify-center items-center rounded">HP {mobMeta.maxHP}</div>
                         <div className="w-[122px] bg-blue-500 flex justify-center items-center rounded">MP {mobMeta.maxMP}</div>

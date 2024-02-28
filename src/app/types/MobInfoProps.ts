@@ -42,6 +42,15 @@ export interface MobInfoProps {
                   subCategory: string
               }
               itemMeta:{
+                    consumeSpec: {
+                    hpR: string,
+                    mpR: string,
+                    pad: string,
+                    pdd: string,
+                    mad: string,
+                    hp: string,
+                    mp: string
+                    },
                   chair: {
                       reqLevel: number
                   },

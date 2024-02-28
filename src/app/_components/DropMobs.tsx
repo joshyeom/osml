@@ -8,7 +8,7 @@ interface dropMobProps{
 
 const DropMobs = ({mobIMG, mob }: dropMobProps) => {
     return(
-        <li className="h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600">
+        <li className="h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-r-[1px] border-slate-600">
             <figure className="w-[150px] h-[150px] relative">
                 <ImageFallback imageUrl={mobIMG} alt={mob.mobName}/>
             </figure>
