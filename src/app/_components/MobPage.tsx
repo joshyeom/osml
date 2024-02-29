@@ -10,6 +10,7 @@ import Image from "next/image"
 import { elementalCalculate } from "../_utils/elementalCalculate"
 import MobMeta from "./MobMeta"
 import RenderStats from "./RenderStats"
+import DropItems from "./DropItems"
 
 const MobPage = ({data}: DataListProps) => {
     const { name } = useParams()
@@ -95,21 +96,9 @@ const MobPage = ({data}: DataListProps) => {
                 </figure>
             </header>
             <section className="w-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
-                <section className="row-span-10 col-span-3 border-solid border-x-[1px] border-slate-600">
-                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
-                        <h2 className="font-semibold">몹</h2>
-                    </header>
-                    {details ? 
-                        <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
-                        <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
-                                {mobMeta && mobName && mobDescription && elemental ? 
-                                        <MobMeta mobName={mobName} mobImage={mobImage} mobDescription={mobDescription} mobMeta={mobMeta} elemental={elemental}/>
-                                : null}
-                        </section>
-                    </article>
-                        : null
-                    }
-                </section>
+                {mobMeta && mobName && mobDescription && elemental && mobImage? 
+                        <DropItems mobMeta={mobMeta} mobName={mobName} mobDescription={mobDescription} elemental={elemental} mobImage={mobImage}/>
+                : null}
                 <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">아이템</h2>
@@ -176,6 +165,7 @@ const MobPage = ({data}: DataListProps) => {
                                                         <div>마력: <span className="text-gray-400">+{item.itemMeta.equip.incMDD}</span></div>)
                                                     : null
                                                 }
+                                                
                                             </div>
                                         </div>
                                     ) : null}
