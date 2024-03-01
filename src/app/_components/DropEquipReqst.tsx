@@ -1,5 +1,7 @@
 import { StatsApi } from "../types/StatsApi"
 import RenderStats from "./RenderStats"
+import { categoryTextMap } from "../_utils/categoryTextMap"
+import { reqJobMap } from "../_utils/reqJobMap"
 
 interface DropEquipReqstProps{
     itemName: string
@@ -28,58 +30,19 @@ interface DropEquipReqstProps{
 }
 
 const DropEquipReqst = ({itemName , itemTypeInfo, itemMeta}: DropEquipReqstProps) => {
+    const {overallCategory, subCategory} = itemTypeInfo
+    const categoryText = categoryTextMap[overallCategory]?.[subCategory] || ""
+    const jobText = reqJobMap[itemMeta?.equip?.reqJob] || ""
+
     return (
         <li className="w-full h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600">
-                                {itemTypeInfo.overallCategory === "Equip" ? (
+                                {overallCategory === "Equip" ? (
                                 <>
                                 <div className="w-[250px] flex justify-between">
-                                            <span className="bg-gray-800 p-[10px] rounded bg-[#222222]">{
-                                                itemMeta.equip.reqJob === 0 ? "공용" :
-                                                itemMeta.equip.reqJob === 1 || itemMeta.equip.reqJob === 3 ? "전사" :
-                                                itemMeta.equip.reqJob === 2 ? "마법사" :
-                                                itemMeta.equip.reqJob === 4 ? "궁수" :
-                                                itemMeta.equip.reqJob === 8 || itemMeta.equip.reqJob === 9 ? "도적" :
-                                                null} 전용
+                                            <span className="bg-gray-800 p-[10px] rounded bg-[#222222]">{jobText} 전용
                                             </span>
                                     <div className="bg-gray-800 p-[10px] rounded bg-[#222222]">
-                                        {
-                                            itemTypeInfo.overallCategory === "Equip" ? 
-                                                <span>{
-                                                itemTypeInfo.subCategory === "Shoes" ? "신발"
-                                                : itemTypeInfo.subCategory === "Overall" ? "전신"
-                                                : itemTypeInfo.subCategory === "One-Handed Sword" ? "한손검"
-                                                : itemTypeInfo.subCategory === "One-Handed Blunt Weapon" ? "한손둔기"
-                                                : itemTypeInfo.subCategory === "Two-Handed Blunt" ? "두손둔기"
-                                                : itemTypeInfo.subCategory === "One-Handed Axe" ? "한손도끼"
-                                                : itemTypeInfo.subCategory === "Two-Handed Axe" ? "두손도끼"
-                                                : itemTypeInfo.subCategory === "Spear" ? "창"
-                                                : itemTypeInfo.subCategory === "Bow" ? "활"
-                                                : itemTypeInfo.subCategory === "Crossbow" ? "석궁"
-                                                : itemTypeInfo.subCategory === "Wand" ? "완드"
-                                                : itemTypeInfo.subCategory === "Staff" ? "스태프"
-                                                : itemTypeInfo.subCategory === "Claw" ? "아대"
-                                                : itemTypeInfo.subCategory === "Hat" ? "모자"
-                                                : itemTypeInfo.subCategory === "Top" ? "상의"
-                                                : itemTypeInfo.subCategory === "Bottom" ? "하의"
-                                                : itemTypeInfo.subCategory === "Earrings" ? "귀고리"
-                                                : itemTypeInfo.subCategory === "Glove" ? "장갑"
-                                                : itemTypeInfo.subCategory === "Cape" ? "망토"
-                                                : itemTypeInfo.subCategory === "Shield" ? "방패"
-                                                : itemTypeInfo.subCategory}
-                                                </span>
-                                            :  <span className="text-gray-400">{
-                                                    itemTypeInfo.subCategory === "Rare Ore" ? "원석"
-                                                    : itemTypeInfo.subCategory === "Potion" ? "포션"
-                                                    : itemTypeInfo.subCategory === "Monster Drop" ? "몹 드랍"
-                                                    : itemTypeInfo.subCategory === "Quest Item" ? "퀘스트 아이템"
-                                                    : itemTypeInfo.subCategory === "Thrown" ? "투척 무기"
-                                                    : itemTypeInfo.subCategory === "Status Cure" ? "상태 회복"
-                                                    : itemTypeInfo.subCategory === "Arrow" ? "활 전용 화살"
-                                                    : itemTypeInfo.subCategory === "Crossbow Bolt" ? "석궁 전용 화살"
-                                                    : itemTypeInfo.subCategory === "Food and Drink" ? "식음료"
-                                                    : itemTypeInfo.subCategory === "Mineral Ore" ? "원석"
-                                                    : itemTypeInfo.subCategory}
-                                            </span>}
+                                        <span>{categoryText}</span>
                                         </div>
                                 </div>
                                 <div className="w-[250px] flex items-center justify-around bg-gray-800 p-[10px] rounded bg-[#222222]">
