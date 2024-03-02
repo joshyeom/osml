@@ -2,6 +2,7 @@ import { StatsApi } from "../types/StatsApi"
 import RenderStats from "./RenderStats"
 import { categoryTextMap } from "../_utils/categoryTextMap"
 import { reqJobMap } from "../_utils/reqJobMap"
+import { useRouter } from "next/navigation"
 
 interface DropEquipReqstProps{
     itemName: string
@@ -33,6 +34,12 @@ const DropEquipReqst = ({itemName , itemTypeInfo, itemMeta}: DropEquipReqstProps
     const {overallCategory, subCategory} = itemTypeInfo
     const categoryText = categoryTextMap[overallCategory]?.[subCategory] || ""
     const jobText = reqJobMap[itemMeta?.equip?.reqJob] || ""
+    const router = useRouter()
+
+    const routeHandler = (name: string) => {
+        const encodedName = encodeURIComponent(name);
+        router.push(`/itemPage/${encodedName}`);
+    }
 
     return (
         <li className="w-full h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600">
