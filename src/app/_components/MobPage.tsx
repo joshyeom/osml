@@ -8,9 +8,7 @@ import { fetchImageURL } from "../_utils/fetchImageURL"
 import { MobInfoProps } from "../types/MobInfoProps"
 import Image from "next/image"
 import { elementalCalculate } from "../_utils/elementalCalculate"
-import MobMeta from "./MobMeta"
-import RenderStats from "./RenderStats"
-import DropItems from "./DropItems"
+import MobInfo from "./MobInfo"
 import DropEquipStats from "./DropEquipStats"
 import DropEquipReqst from "./DropEquipReqst"
 import DropItemPercentage from "./DropItemPercentage"
@@ -98,9 +96,9 @@ const MobPage = ({data}: DataListProps) => {
             </header>
             <section className="w-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
                 {mobMeta && mobName && mobDescription && elemental && mobImage? 
-                        <DropItems mobMeta={mobMeta} mobName={mobName} mobDescription={mobDescription} elemental={elemental} mobImage={mobImage}/>
+                        <MobInfo mobMeta={mobMeta} mobName={mobName} mobDescription={mobDescription} elemental={elemental} mobImage={mobImage}/>
                 : null}
-                <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
+                <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600 max-xl:col-span-4">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">아이템</h2>
                     </header>
@@ -112,7 +110,7 @@ const MobPage = ({data}: DataListProps) => {
                         : null}
                     </ol>
                 </section>
-                <section className="row-span-10 col-span-3">
+                <section className="row-span-10 col-span-3 max-xl:col-span-4">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">아이템 스텟</h2>
                     </header>
@@ -123,7 +121,7 @@ const MobPage = ({data}: DataListProps) => {
                         </ol>
                 </section>
                 <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
-                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
+                    <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center max-sm:text-lg">
                         <h2 className="font-semibold">드랍 확률</h2>
                     </header>
                     <ol className="bg-[#333333]">

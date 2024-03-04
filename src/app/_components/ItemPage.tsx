@@ -109,7 +109,7 @@ const ItemPage = ({data}: DataListProps) => {
                 </figure>
             </header>
             <section className="w-full grid grid-rows-10 grid-cols-10 bg-[#333333]">
-                <section className="row-span-10 col-span-2 border-solid border-x-[1px] border-slate-600">
+                <section className="row-span-10 col-span-2 max-xl:col-span-10 border-solid border-x-[1px] border-slate-600">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">아이템</h2>
                     </header>
@@ -126,7 +126,7 @@ const ItemPage = ({data}: DataListProps) => {
                         : null
                     }
                 </section>
-                <section className="row-span-10 col-span-3">
+                <section className="row-span-10 col-span-3 max-xl:col-span-4">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">드랍 몹</h2>
                     </header>
@@ -137,7 +137,7 @@ const ItemPage = ({data}: DataListProps) => {
                             )) : null}
                     </ol>
                 </section>
-                <section className="row-span-10 col-span-3">
+                <section className="row-span-10 col-span-3 max-xl:col-span-4">
                     <header className="w-full bg-[#2B2B2B] h-[80px] text-xl text-white text-center flex justify-center items-center">
                         <h2 className="font-semibold">몹 스텟</h2>
                     </header>

@@ -7,7 +7,7 @@ const MobMain = async () => {
     const data = await getList()
     return (
         <main className="w-[1620px] flex flex-col items-center">
-            <Search position={"absolute"} width={"w-[280px]"} data={data}></Search>
+            <Search position={"absolute"} width={"w-[250px]"} data={data}></Search>
             <MobPage data={data}></MobPage>
         </main>
     )

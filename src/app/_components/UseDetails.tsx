@@ -14,7 +14,7 @@ export interface UseDetailsProps {
 
 const UseDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST}: UseDetailsProps) => {
     return(
-            <article className="row-span-10 col-span-2 flex flex-col items-center pt-5">
+            <article className="row-span-10 col-span-2 flex flex-col items-center py-5">
                 <section className="w-[300px] bg-gray-700 flex flex-col items-center p-[10px] bg-[#222222]">
                     <header className="text-xl mb-[16px] text-white font-semibold">{itemName}</header>
                     <div className="w-full flex mb-[16px] justify-around">
@@ -23,7 +23,7 @@ const UseDetails = ({itemIMG, itemName, forSell, subCategory, description, REQST
                                 <Image src={itemIMG} alt={itemName} width={80} height={80}></Image>
                             : null}
                         </figure>
-                        <article className="w-[140px] flex flex-col justify-center">
+                        <article className="w-5/6 flex flex-col justify-center">
                             {REQST ? <RenderStats REQST={REQST}></RenderStats> : null}
                             {description ?
                                 <p className="flex justify-center items-center mb-3 text-gray-400">

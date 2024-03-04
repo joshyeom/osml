@@ -28,11 +28,11 @@ const DropEquipStats = ({itemMeta, itemName ,i, dropIMG, itemTypeInfo}: DropEqui
             <figure className="w-[150px] h-[150px] relative flex justify-center items-center">
                 <Image src={dropIMG[i]} alt={itemName} width={80} height={80}/>
             </figure>
-            <div><span className="text-xl font-semibold">{itemName}</span></div>
+            <div className="text-center py-3"><span className="text-xl font-semibold max-sm:text-base">{itemName}</span></div>
             {itemTypeInfo.overallCategory === "Equip" ? (
-                <div className="flex items-center justify-between bg-gray-800 p-[10px] rounded bg-[#222222]">
+                <div className="flex items-center justify-between bg-gray-800 p-[10px] rounded bg-[#222222] max-sm:text-xs">
                     <span className="font-bold">추가 효과</span>
-                    <div className="flex flex-col pl-[20px]">
+                    <div className="flex flex-col pl-[10px]">
                         {
                             itemMeta.equip.attackSpeed ? (
                                 <div>공격속도: <span className="text-gray-400">{itemMeta.equip.attackSpeed}</span></div>)
