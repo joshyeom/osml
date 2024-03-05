@@ -1,11 +1,14 @@
 import { DataProps } from "../types/DataProps"
 import ImageFallback from "./ImageFallback"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 
 export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
+    const [cursor, setCursor] = useState<string>("cursor-pointer")
     const router = useRouter()
     const routeHandler = (name: string) => {
         const encodedName = encodeURIComponent(name);
+        setCursor("cursor-wait")
         router.push(`/mobPage/${encodedName}`);
     }
     
@@ -17,7 +20,7 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     const highlight = name.slice(index, index + keyword.length)
     const end = name.slice(index + keyword.length, name.length)
     return (
-    <li key={name} onClick={() => routeHandler(name)} className="relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600">
+    <li key={name} onClick={() => routeHandler(name)} className={`relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600 ${cursor}`}>
         <figure className="w-[50px] h-[50px] relative">
             <ImageFallback imageUrl={imageUrl} alt={name}/>
         </figure>

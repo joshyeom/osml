@@ -1,6 +1,7 @@
 import ImageFallback from "./ImageFallback"
 import { MobsThatDropTheItemProps } from "../types/MobsThatDropTheItemProps";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 interface dropMobProps{
     mobIMG: string;
     mob: MobsThatDropTheItemProps
@@ -8,14 +9,16 @@ interface dropMobProps{
 
 const DropMobs = ({mobIMG, mob }: dropMobProps) => {
     const router = useRouter()
+    const [cursor, setCursor] = useState<string>("cursor-pointer")
     const routeHandler = (name: string) => {
         const encodedName = encodeURIComponent(name);
+        setCursor("cursor-wait")
         router.push(`/mobPage/${encodedName}`);
     }
 
 
     return(
-        <li className="h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-r-[1px] border-slate-600 cursor-pointer"
+        <li className={`h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-r-[1px] border-slate-600 ${cursor}`}
             onClick={() => routeHandler(mob.mobName.replaceAll(" ", ""))}>
             <figure className="w-[150px] h-[150px] max-lg:w-[100px] max-lg:h-[100px] max-md:w-[50px] max-md:h-[50px] relative">
                 <ImageFallback imageUrl={mobIMG} alt={mob.mobName}/>

@@ -17,7 +17,7 @@ const MobMeta = ({mobName, mobImage, mobDescription, mobMeta, elemental}: mobMet
                 <div className="w-full flex flex-col mb-[16px] justify-around">
                     <figure className="w-full h-[150px] flex justify-center items-center bg-transparent">
                         {mobImage && mobName ? 
-                            <Image src={mobImage} alt={mobName} width={80} height={80}></Image>
+                            <Image src={mobImage} alt={mobName} width={150} height={150}></Image>
                         : null}
                     </figure>
                     <article className="w-full flex justify-center">

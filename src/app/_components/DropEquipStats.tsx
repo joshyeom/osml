@@ -2,6 +2,7 @@ import Image from "next/image"
 import { MobInfoProps } from "../types/MobInfoProps"
 import { StatsApi } from "../types/StatsApi"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
 interface DropEquipsProps{
     i: number
     dropIMG :string[]
@@ -17,13 +18,15 @@ interface DropEquipsProps{
 
 const DropEquipStats = ({itemMeta, itemName ,i, dropIMG, itemTypeInfo}: DropEquipsProps) => {
     const router = useRouter()
+    const [cursor, setCursor] = useState<string>("cursor-pointer")
     const routeHandler = (name: string) => {
         const encodedName = encodeURIComponent(name);
+        setCursor("cursor-wait")
         router.push(`/itemPage/${encodedName}`);
     }
     
     return(
-        <li className="h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600 cursor-pointer"
+        <li className={`h-[400px] py-[40px] flex flex-col justify-around items-center border-solid border-b-[1px] border-slate-600 ${cursor}`}
             onClick={() => routeHandler(itemName)}>
             <figure className="w-[150px] h-[150px] relative flex justify-center items-center">
                 <Image src={dropIMG[i]} alt={itemName} width={80} height={80}/>
