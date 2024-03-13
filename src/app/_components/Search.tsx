@@ -8,6 +8,7 @@ import { SearchProps } from "../types/SearchProps"
 import { filterItemHandler } from "../_utils/filterItemHandler"
 
 const Search: React.FC<SearchProps> = ({data, position, width}) => {
+
     const [keyword, setKeyword] = useState<string>("")
     const [itemList, setItemList] = useState<SearchProps["data"]>([])
     const [mobList, setMobList] = useState<SearchProps["data"]>([])
@@ -17,14 +18,43 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
     }
     
     useEffect(() => {
-        const sortedItem = filterItemHandler(data, keyword)
-        if(sortedItem !== undefined){
-            const mob = sortedItem.filter(v => v.category === "mob")
-            const item = sortedItem.filter(v => v.category === "item")
-            setMobList(mob.slice(0, 5))
-            setItemList(item.slice(0, 5))
-        }
-      }, [keyword, data]);
+        let filteredItem = []
+        let filteredMob = []
+        const items = data.items[0]
+        const mobs = data.mobs[0]
+        Object.keys(items).forEach((id) => {
+            if(id === "_id") return
+            if(items[id].name.includes(keyword)){
+                filteredItem.push({name: items[id].name, imageUrl: `http://maplestory.io/api/gms/62/item/${id}/icon?resize=3`, category: "item"})
+            }
+        });
+        const sortedItem = filteredItem.sort((a, b) => {
+            if(a.name.startsWith(keyword) && !b.name.startsWith(keyword)){
+                return -1
+            }   else if (!a.name.startsWith(keyword) && b.name.startsWith(keyword)) {
+                return 1;
+              } else {
+                return 0;
+              }
+          }).slice(0,5)
+        Object.keys(mobs).forEach((id) => {
+            if(id === "_id") return
+            if(mobs[id].name.includes(keyword)){
+                filteredMob.push({name: mobs[id].name, imageUrl: `http://maplestory.io/api/gms/62/mob/animated/${id}/move`, category: "mob"})
+            }
+        });
+        const sortedMob = filteredMob.sort((a, b) => {
+            if(a.name.startsWith(keyword) && !b.name.startsWith(keyword)){
+                return -1
+            }   else if (!a.name.startsWith(keyword) && b.name.startsWith(keyword)) {
+                return 1;
+              } else {
+                return 0;
+              }
+          }).slice(0,5)
+          setItemList(sortedItem)
+          setMobList(sortedMob)
+    }, [keyword, data])
 
 
     return (
@@ -42,16 +72,16 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
             {
             mobList.length > 0 || itemList.length > 0 ? 
                 <ul className={`w-full border-white border border-t-0 flex flex-col justify-center align-center mb-14`}>
-                    {itemList.length > 0 ? <div className="text-center my-5 text-white">아이템</div> : null}
+                   {itemList.length > 0 ? <div className="text-center my-5 text-white">아이템</div> : null}
                     {
                     itemList.length > 0 ? itemList.map(v => (
-                            <ItemList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category} keyword={keyword}></ItemList>
+                            <ItemList key={v.name} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={keyword}></ItemList>
                         )) : null
                     }
                     {mobList.length > 0 ? <div className="text-center my-5 text-white">몹</div> : null}
                     {
                     mobList.length > 0 ? mobList.map(v => (
-                        <MobList key={v.id} name={v.name} imageUrl={v.imageUrl} id={v.id} category={v.category} keyword={keyword}></MobList> 
+                        <MobList key={v.id} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={keyword}></MobList> 
                         )) : null
                     }
                 </ul>

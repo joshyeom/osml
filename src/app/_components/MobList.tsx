@@ -29,7 +29,7 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
             <span className="text-red-600 group-hover:hidden">{highlight}</span>
             <span className="text-white font-semibold hidden group-hover:inline">{highlight}</span>
             <span>{end}</span>
-        </p>
+        </p> 
     </li>
     )
 }
