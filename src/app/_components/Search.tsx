@@ -5,55 +5,36 @@ import "../../styles/global.css"
 import { ItemList } from "./ItemList"
 import { MobList } from "./MobList"
 import { SearchProps } from "../types/SearchProps"
-import { filterItemHandler } from "../_utils/filterItemHandler"
+import { filterAndSortByName } from "../_utils/filterAndSortedList"
+import { filterAndSortByNameProps } from "../_utils/filterAndSortedList"
 
 const Search: React.FC<SearchProps> = ({data, position, width}) => {
+    interface SetListTypes {
+        name: string
+        keyword: string
+        imageUrl: string
+        category: string
+        id: string
+    }
 
     const [keyword, setKeyword] = useState<string>("")
-    const [itemList, setItemList] = useState<SearchProps["data"]>([])
-    const [mobList, setMobList] = useState<SearchProps["data"]>([])
+    const [itemList, setItemList] = useState<SetListTypes[] | null>(null)
+    const [mobList, setMobList] = useState<SetListTypes[] | null>(null)
 
     const changeHandler = (e:React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(e.currentTarget.value)
     }
     
     useEffect(() => {
-        let filteredItem = []
-        let filteredMob = []
-        const items = data.items[0]
-        const mobs = data.mobs[0]
-        Object.keys(items).forEach((id) => {
-            if(id === "_id") return
-            if(items[id].name.includes(keyword)){
-                filteredItem.push({name: items[id].name, imageUrl: `http://maplestory.io/api/gms/62/item/${id}/icon?resize=3`, category: "item"})
-            }
-        });
-        const sortedItem = filteredItem.sort((a, b) => {
-            if(a.name.startsWith(keyword) && !b.name.startsWith(keyword)){
-                return -1
-            }   else if (!a.name.startsWith(keyword) && b.name.startsWith(keyword)) {
-                return 1;
-              } else {
-                return 0;
-              }
-          }).slice(0,5)
-        Object.keys(mobs).forEach((id) => {
-            if(id === "_id") return
-            if(mobs[id].name.includes(keyword)){
-                filteredMob.push({name: mobs[id].name, imageUrl: `http://maplestory.io/api/gms/62/mob/animated/${id}/move`, category: "mob"})
-            }
-        });
-        const sortedMob = filteredMob.sort((a, b) => {
-            if(a.name.startsWith(keyword) && !b.name.startsWith(keyword)){
-                return -1
-            }   else if (!a.name.startsWith(keyword) && b.name.startsWith(keyword)) {
-                return 1;
-              } else {
-                return 0;
-              }
-          }).slice(0,5)
-          setItemList(sortedItem)
-          setMobList(sortedMob)
+        if (!data.items || !data.mobs) return;
+        const items = data.items[0];
+        const mobs = data.mobs[0];
+        
+        const sortedItems = filterAndSortByName({data:items, keyword: keyword, category: "item"});
+      
+        const sortedMobs = filterAndSortByName({data:mobs, keyword: keyword, category: "mob"});
+        setItemList(sortedItems);
+        setMobList(sortedMobs);
     }, [keyword, data])
 
 
@@ -69,19 +50,18 @@ const Search: React.FC<SearchProps> = ({data, position, width}) => {
                 placeholder="검색어를 입력해 주세요"
                 className="w-full h-9 border-white border bg-transparent text-white placeholder:italic placeholder:text-slate-400 pl-5 py-6 mt-10 rounded-t-lg"
             />
-            {
-            mobList.length > 0 || itemList.length > 0 ? 
+            {itemList && mobList ?
                 <ul className={`w-full border-white border border-t-0 flex flex-col justify-center align-center mb-14`}>
                    {itemList.length > 0 ? <div className="text-center my-5 text-white">아이템</div> : null}
                     {
                     itemList.length > 0 ? itemList.map(v => (
-                            <ItemList key={v.name} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={keyword}></ItemList>
+                            <ItemList key={v.name} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={v.keyword}></ItemList>
                         )) : null
                     }
                     {mobList.length > 0 ? <div className="text-center my-5 text-white">몹</div> : null}
                     {
                     mobList.length > 0 ? mobList.map(v => (
-                        <MobList key={v.id} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={keyword}></MobList> 
+                            <MobList key={v.name} name={v.name} imageUrl={v.imageUrl} category={v.category} keyword={v.keyword} id={v.id}></MobList> 
                         )) : null
                     }
                 </ul>

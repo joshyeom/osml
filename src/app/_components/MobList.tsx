@@ -3,7 +3,16 @@ import ImageFallback from "./ImageFallback"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
+interface MobListProps{
+    name: string;
+    keyword: string
+    imageUrl: string
+    category: string
+    id: string
+}
+
+
+export const MobList:React.FC<MobListProps> = ({name, imageUrl, keyword, category, id}) => {
     const [cursor, setCursor] = useState<string>("cursor-pointer")
     const router = useRouter()
     const routeHandler = (name: string) => {
@@ -13,7 +22,7 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     }
     
     if(!name.includes(keyword)){
-        return
+        return null
     }
     const index = name.indexOf(keyword)
     const front = name.slice(0, index)
@@ -22,7 +31,7 @@ export const MobList:React.FC<DataProps> = ({name, imageUrl, keyword, id}) => {
     return (
     <li key={name} onClick={() => routeHandler(name)} className={`relative group flex item-center h-20 p-4 pl-7 hover:bg-red-600 ${cursor}`}>
         <figure className="w-[50px] h-[50px] relative">
-            <ImageFallback imageUrl={imageUrl} alt={name}/>
+            <ImageFallback imageUrl={imageUrl} id={id} name={name}/>
         </figure>
         <p className="pl-7 text-lg text-white leading-10">
             <span>{front}</span>

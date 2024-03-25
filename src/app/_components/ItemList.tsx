@@ -3,7 +3,14 @@ import { DataProps } from "../types/DataProps"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
-export const ItemList: React.FC<DataProps>  = ({name, imageUrl, id, category, keyword}) => {
+interface ItemListProps{
+    name: string;
+    keyword: string
+    imageUrl: string
+    category: string
+}
+
+export const ItemList: React.FC<ItemListProps>  = ({name, imageUrl, keyword, category}) => {
     const [cursor, setCursor] = useState<string>("cursor-pointer")
     const router = useRouter()
     const routeHandler = (name: string) => {
